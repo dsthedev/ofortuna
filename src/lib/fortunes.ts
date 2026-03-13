@@ -15,7 +15,7 @@ export async function loadFortunes(): Promise<Fortune[]> {
 
 function parseCsv(csv: string): Fortune[] {
   const lines = csv.trim().split("\n")
-  const headers = lines[0].split(",")
+  //   const headers = lines[0].split(",")
 
   return lines.slice(1).map((line) => {
     const values = parseCSVLine(line)
@@ -56,15 +56,13 @@ export function getRandomFortune(fortunes: Fortune[]): Fortune {
   return fortunes[Math.floor(Math.random() * fortunes.length)]
 }
 
-export function searchFortunes(
-  fortunes: Fortune[],
-  query: string
-): Fortune[] {
+export function searchFortunes(fortunes: Fortune[], query: string): Fortune[] {
   if (!query.trim()) return fortunes
 
   const lowerQuery = query.toLowerCase()
   return fortunes.filter((fortune) => {
-    const searchText = `${fortune.text} ${fortune.category} ${fortune.interpretation}`.toLowerCase()
+    const searchText =
+      `${fortune.text} ${fortune.category} ${fortune.interpretation}`.toLowerCase()
     return searchText.includes(lowerQuery)
   })
 }

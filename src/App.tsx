@@ -69,7 +69,7 @@ export function App() {
   return (
     <div className="flex min-h-svh flex-col items-center justify-center gap-8 p-6">
       {/* Header */}
-      <h1 className="absolute left-6 top-6 font-serif text-3xl font-medium text-foreground">
+      <h1 className="absolute left-6 top-6 font-serif text-3xl font-medium text-muted-foreground">
         O Fortuna
       </h1>
 
