@@ -1,5 +1,8 @@
 # o' fortuna
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/970c6418-0ea8-4cb1-aa22-43b8c596a507/deploy-status)](https://app.netlify.com/projects/ofortuna/deploys)
+
+
 A fortune cookie collection manager for discovering, browsing, and reflecting on fortunes. Each fortune includes interpretive guidance to help apply the wisdom to your life.
 
 **Live Demo:** https://ofortuna.netlify.app
