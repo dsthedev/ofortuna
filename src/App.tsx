@@ -160,6 +160,21 @@ export function App() {
         onOpenChange={setIsListingOpen}
         fortunes={fortunes}
       />
+
+      {/* Footer */}
+      <div className="absolute bottom-6 flex items-center gap-1 text-xs text-muted-foreground">
+        <span>Made w/</span>
+        <span className="text-red-500">❤️</span>
+        <span>by</span>
+        <a
+          href="https://github.com/dsthedev/ofortuna"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-foreground hover:underline"
+        >
+          dsthedev
+        </a>
+      </div>
     </div>
   )
 }
