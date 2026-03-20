@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { ChevronLeft, ChevronRight, Ghost } from "lucide-react"
+import { ChevronLeft, ChevronRight, Ghost, TableProperties } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   HoverCard,
@@ -9,6 +9,7 @@ import {
 import { Kbd } from "@/components/ui/kbd"
 import { FortuneSkeleton } from "@/components/fortune-skeleton"
 import { FortuneListing } from "@/components/fortune-listing"
+import { FortuneEditor } from "@/components/fortune-editor"
 import { type Fortune, loadFortunes, getRandomFortune } from "@/lib/fortunes"
 
 export function App() {
@@ -16,6 +17,7 @@ export function App() {
   const [currentFortune, setCurrentFortune] = useState<Fortune | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isListingOpen, setIsListingOpen] = useState(false)
+  const [isEditorOpen, setIsEditorOpen] = useState(false)
 
   // Load fortunes on mount
   useEffect(() => {
@@ -39,9 +41,18 @@ export function App() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft") {
-        handlePrevFortune()
+        if (fortunes.length > 0 && currentFortune) {
+          const currentIndex = fortunes.findIndex(
+            (fortune) => fortune.id === currentFortune.id
+          )
+          const prevIndex =
+            currentIndex === 0 ? fortunes.length - 1 : currentIndex - 1
+          setCurrentFortune(fortunes[prevIndex])
+        }
       } else if (e.key === "ArrowRight") {
-        handleNextFortune()
+        if (fortunes.length > 0) {
+          setCurrentFortune(getRandomFortune(fortunes))
+        }
       }
     }
 
@@ -57,21 +68,47 @@ export function App() {
 
   const handlePrevFortune = () => {
     if (fortunes.length > 0 && currentFortune) {
-      const currentIndex = fortunes.findIndex(
-        (f) => f.id === currentFortune.id
-      )
+      const currentIndex = fortunes.findIndex((f) => f.id === currentFortune.id)
       const prevIndex =
         currentIndex === 0 ? fortunes.length - 1 : currentIndex - 1
       setCurrentFortune(fortunes[prevIndex])
     }
   }
 
+  const handleFortunesChange = (nextFortunes: Fortune[]) => {
+    setFortunes(nextFortunes)
+    setCurrentFortune((previousFortune) => {
+      if (nextFortunes.length === 0) {
+        return null
+      }
+
+      if (!previousFortune) {
+        return nextFortunes[0]
+      }
+
+      return (
+        nextFortunes.find((fortune) => fortune.id === previousFortune.id) ??
+        nextFortunes[0]
+      )
+    })
+  }
+
   return (
     <div className="flex min-h-svh flex-col items-center justify-center gap-8 p-6">
       {/* Header */}
-      <h1 className="absolute left-6 top-6 font-serif text-3xl font-medium text-muted-foreground">
+      <h1 className="absolute top-6 left-6 font-serif text-3xl font-medium text-muted-foreground">
         O Fortuna
       </h1>
+
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => setIsEditorOpen(true)}
+        className="absolute top-6 right-6"
+        aria-label="Open fortune editor"
+      >
+        <TableProperties className="h-5 w-5" />
+      </Button>
 
       {isLoading ? (
         <FortuneSkeleton />
@@ -92,7 +129,7 @@ export function App() {
             <div className="flex-1">
               <HoverCard>
                 <HoverCardTrigger asChild>
-                  <div className="cursor-help select-none rounded-lg p-8 transition-colors hover:bg-muted">
+                  <div className="cursor-help rounded-lg p-8 transition-colors select-none hover:bg-muted">
                     <p className="font-serif text-4xl leading-relaxed text-foreground">
                       {currentFortune.text}
                     </p>
@@ -148,7 +185,7 @@ export function App() {
         variant="ghost"
         size="icon"
         onClick={() => setIsListingOpen(true)}
-        className="absolute bottom-6 right-6"
+        className="absolute right-6 bottom-6"
         aria-label="View all fortunes"
       >
         <Ghost className="h-5 w-5" />
@@ -159,6 +196,13 @@ export function App() {
         open={isListingOpen}
         onOpenChange={setIsListingOpen}
         fortunes={fortunes}
+      />
+
+      <FortuneEditor
+        open={isEditorOpen}
+        onOpenChange={setIsEditorOpen}
+        fortunes={fortunes}
+        onFortunesChange={handleFortunesChange}
       />
 
       {/* Footer */}
