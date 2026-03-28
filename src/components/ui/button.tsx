@@ -14,6 +14,12 @@ const buttonVariants = cva(
           "border-border hover:bg-input/50 hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:bg-input/30",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+        sky: "bg-sky-500 text-white hover:bg-sky-600 aria-expanded:bg-sky-600 aria-expanded:text-white",
+        lime: "bg-lime-500 text-white hover:bg-lime-600 aria-expanded:bg-lime-600 aria-expanded:text-white",
+        purple:
+          "bg-purple-500 text-white hover:bg-purple-600 aria-expanded:bg-purple-600 aria-expanded:text-white",
+        yellow:
+          "bg-yellow-500 text-white hover:bg-yellow-600 aria-expanded:bg-yellow-600 aria-expanded:text-white",
         ghost:
           "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
         destructive:
@@ -26,6 +32,9 @@ const buttonVariants = cva(
         xs: "h-5 gap-1 rounded-sm px-2 text-[0.625rem] has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-2.5",
         sm: "h-6 gap-1 px-2 text-xs/relaxed has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
         lg: "h-8 gap-1 px-2.5 text-xs/relaxed has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_svg:not([class*='size-'])]:size-4",
+        xl: "h-10 gap-2 px-3 text-sm [&_svg:not([class*='size-'])]:size-4.5",
+        xxl: "h-12 gap-2 px-4 text-sm [&_svg:not([class*='size-'])]:size-5",
+        xxxl: "h-14 gap-3 px-5 text-base [&_svg:not([class*='size-'])]:size-6",
         icon: "size-7 [&_svg:not([class*='size-'])]:size-3.5",
         "icon-xs": "size-5 rounded-sm [&_svg:not([class*='size-'])]:size-2.5",
         "icon-sm": "size-6 [&_svg:not([class*='size-'])]:size-3",
